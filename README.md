@@ -1,25 +1,22 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Build Square" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Build Square</h1>
-</a>
+# Build Square
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+build in community, share project updates, get feedback, and contribute to open source
 
-<p align="center">
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-</p>
-<br/>
+## project idea
 
-- [x] set up supabase locally
-- [x] set up type safe environment variables with typebox
-- [ ] migrate to next 15
-- [ ] consider adding motion for animations
-- [ ] create readme
-- [ ] create CONTRIBUTING.md
-- [ ] create design principles (decide to use dark mode by default and ios style)
+Build Square is a web app made for developers who want to build in public, sharing the change logs of their apps, sharing their finished projects and finding projects to contribute / contributors, while discovering other developers projects!
 
-# set up locally
+## MVP features
 
-[docs](https://supabase.com/docs/guides/cli/local-development)
+- [ ] can create a profile, set picture, a username, a name and a description.
+- [ ] can create a project with a picture, a title and a description.
+- [ ] can create a change log and associate it with a project, setting a title, a link and description
+- [ ] can see a feed of profiles, change logs and projects
+- [ ] can add tags to a project
+- [ ] can search projects
+- [ ] can filter projects by tags
+- [ ] can see a list of projects and change logs on a user profile
+
+## CONTRIBUTING
+
+The guide for contributing are in [CONTRIBUTING.md](https://github.com/buildsquareorg/buildsquare/CONTRIBUTING.MD)
