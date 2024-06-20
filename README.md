@@ -1,6 +1,6 @@
 # Build Square
 
-build in community, share project updates, get feedback, and contribute to open source
+Build in community, share project updates, get feedback, and contribute to open source
 
 ## project idea
 
@@ -19,4 +19,4 @@ Build Square is a web app made for developers who want to build in public, shari
 
 ## CONTRIBUTING
 
-The guide for contributing are in [CONTRIBUTING.md](https://github.com/buildsquareorg/buildsquare/CONTRIBUTING.MD)
+The guide for contributing are in [CONTRIBUTING.md](https://github.com/buildsquare-org/buildsquare/blob/main/CONTRIBUTING.md)
