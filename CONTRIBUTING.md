@@ -8,12 +8,21 @@ The UI style must be kind of Mac style
 
 ### theme
 
-the default and only theme is going to be dark since it's an app for developers.
-later on, after finishing the MVP, we can consider adding a light mode
+- the default and only theme is going to be dark since it's an app for developers.
+- later on, after finishing the MVP, we can consider adding a light mode
+
+- color palette: violet with black
+
+### inspiration designs
+
+- [studioultra](https://www.studioultra.co/)
+- [linear](https://linear.app/homepage)
+- [rycast](https://www.raycast.com/)
+- [keywordia](https://keywordsai.co/)
 
 ## database design (still fresh)
-![buildsquare (5)](https://github.com/buildsquare-org/buildsquare/assets/113150193/1280a8b2-585e-426f-84e0-a6bc99e9f5d6)
 
+![database design](https://github.com/buildsquare-org/buildsquare/assets/113150193/1280a8b2-585e-426f-84e0-a6bc99e9f5d6)
 
 ## picking a task
 
