@@ -41,13 +41,13 @@ Build Square is a web app made for developers who want to build in public, shari
 ### feed
 
 - 1. feed view
-- - [ ] can see a feed of profiles, change logs and projects mixed in a masonry layout
+  1. - [ ] can see a feed of profiles, change logs and projects mixed in a masonry layout
 - 2. week view
-- - [ ] feed of projects most popular this week
-- - 3. month view
-- - [ ] feed of popular projects of current month
+  1. - [ ] feed of projects most popular this week
+- 3. month view
+  1. - [ ] feed of popular projects of current month
 - 4. year view
-- - [ ] feed of popular projects of current year
+  1. - [ ] feed of popular projects of current year
 
 ### search
 
