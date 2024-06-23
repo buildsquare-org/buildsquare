@@ -1,5 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { Profile } from "./(views)/profile";
+import { Dialog } from "./(views)/dialog";
+
+type TViews = "authenticated" | "non-authenticated";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -8,5 +11,16 @@ export default async function ProtectedPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return <div>profile</div>;
+  const userSessionStatus: TViews = user
+    ? "authenticated"
+    : "non-authenticated";
+
+  const VIEWS: Record<TViews, JSX.Element> = {
+    authenticated: <Profile userId={user?.id || ""} />,
+    "non-authenticated": <Dialog />,
+  };
+
+  const view = VIEWS[userSessionStatus];
+
+  return view;
 }
