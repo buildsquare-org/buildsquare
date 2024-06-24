@@ -1,4 +1,14 @@
 export class ClientRouting {
+  public static auth() {
+    const basePath = "/auth";
+
+    return {
+      slash: basePath,
+      signUp: `${basePath}/sign-up`,
+      signIn: `${basePath}/sign-in`,
+    };
+  }
+
   public static feed() {
     const basePath = "/";
 
