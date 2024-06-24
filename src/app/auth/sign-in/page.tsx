@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { TextInput } from "@/components/ui/text-input";
+import { Label } from "@/components/ui/label";
 
 export default function SignInPage({
   searchParams,
@@ -53,13 +54,13 @@ export default function SignInPage({
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <label className="text-md" htmlFor="email">
+        <Label className="text-md" htmlFor="email">
           Email
-        </label>
+        </Label>
         <TextInput type="email" />
-        <label className="text-md" htmlFor="password">
+        <Label className="text-md" htmlFor="password">
           Password
-        </label>
+        </Label>
         <TextInput type="password" />
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
