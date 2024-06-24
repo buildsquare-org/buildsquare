@@ -1,80 +1,103 @@
-import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { SubmitButton } from "../sign-in/submit-button";
+"use client";
+
+import { useForm } from "react-hook-form";
+import { TFormAreas } from "./sign-up.models";
+import { Label } from "@/components/ui/label";
+import { TextInput } from "@/components/ui/text-input";
+import { Button } from "@/components/ui/button";
+import { signUp as signUpAction } from "@/actions/auth/sign-up";
+import { ClientRouting } from "@/models/routing/client.routing";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams: { message: string; next: string };
 }) {
-  const signIn = async (formData: FormData) => {
-    "use server";
+  const { formState, register, handleSubmit } = useForm<TFormAreas>({
+    mode: "all",
+  });
 
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
+  const { errors, isValid, isSubmitting } = formState;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const router = useRouter();
 
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
-
-    return redirect("/protected");
-  };
-
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
+  async function signUp(data: TFormAreas) {
+    const { error } = await signUpAction(data);
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      router.push(ClientRouting.auth().signIn + `?message=${error}`);
+      return;
     }
 
-    return redirect("/login?message=Check email to continue sign in process");
-  };
+    const message = "Check your email to complete your Sign Up";
+
+    router.push(ClientRouting.auth().signUp + `?message=${message}`);
+  }
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input name="email" placeholder="you@example.com" required />
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <SubmitButton formAction={signIn} pendingText="Signing In...">
-          Sign In
-        </SubmitButton>
-        <SubmitButton formAction={signUp} pendingText="Signing Up...">
+    <div className="flex flex-col w-full h-full items-center justify-center gap-5">
+      <h1 className="dark:text-neutral-200 text-2xl font-semibold">
+        Welcome back to Build Square!
+      </h1>
+      <form
+        onSubmit={handleSubmit(signUp)}
+        className="flex flex-col w-full justify-center gap-5 text-foreground"
+      >
+        <fieldset className="flex flex-col">
+          <Label className="text-md" htmlFor="email">
+            Email
+          </Label>
+          <TextInput
+            type="email"
+            id="email"
+            placeholder="youremail@gmail.com"
+            {...register("email", {
+              required: { value: true, message: "Email is required" },
+              pattern: {
+                message: "Incorrect email format",
+                value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+              },
+            })}
+          />
+          {errors.email?.message && (
+            <span className="dark:text-indigo-400 mt-1 will-change-contents">
+              {errors.email.message}
+            </span>
+          )}
+        </fieldset>
+        <fieldset className="flex flex-col">
+          <Label className="text-md" htmlFor="password">
+            Password
+          </Label>
+          <TextInput
+            type="password"
+            id="password"
+            placeholder="------"
+            {...register("password", {
+              required: { value: true, message: "Password is required" },
+              minLength: {
+                value: 8,
+                message: "Password must contain more than 8 letter(s)",
+              },
+            })}
+          />
+          {errors.password?.message && (
+            <span className="dark:text-indigo-400 mt-1">
+              {errors.password.message}
+            </span>
+          )}
+        </fieldset>
+        <Button
+          className="py-5"
+          type="submit"
+          disabled={!isValid || isSubmitting}
+          isLoading={isSubmitting}
+        >
           Sign Up
-        </SubmitButton>
+        </Button>
         {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+          <p className="mt-4 p-4 bg-neutral-700/10 dark:text-indigo-400 text-center">
             {searchParams.message}
           </p>
         )}
