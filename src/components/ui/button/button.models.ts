@@ -5,19 +5,21 @@ export type RawProps = {
   children: ReactNode;
   isLoading?: boolean;
   asChild?: boolean;
-  className: HTMLElement["className"];
+  className?: HTMLElement["className"];
 };
 
 export const buttonVariants = cva(
-  "flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "",
+        primary: "bg-indigo-500 text-neutral-50 hover:brightness-110",
+        "primary-grayscale": "bg-neutral-300 text-neutral-950",
+        secondary:
+          "dark:bg-neutral-700 dark:text-neutral-50 hover:brightness-110",
         destructive: "",
         outline: "",
-        secondary: "",
-        ghost: "hover:bg-transparent hover:brightness-110",
+        ghost: "bg-neutral-900 hover:bg-neutral-700 dark:text-neutral-50",
         link: "text-200 underline-offset-4 hover:underline",
       },
       size: {
@@ -28,7 +30,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "md",
     },
   },

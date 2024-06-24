@@ -5,7 +5,14 @@ import { cn } from "@/utils/cn";
 
 const Button = forwardRef<HTMLButtonElement | RefObject<HTMLElement>, Props>(
   (
-    { children, isLoading = false, asChild = false, size, variant, className },
+    {
+      children,
+      isLoading = false,
+      asChild = false,
+      size,
+      variant,
+      className = "",
+    },
     ref: any,
   ) => {
     const Element = asChild ? "div" : "button";
@@ -22,3 +29,5 @@ const Button = forwardRef<HTMLButtonElement | RefObject<HTMLElement>, Props>(
 );
 
 Button.displayName = "Button";
+
+export { Button };

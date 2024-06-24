@@ -3,8 +3,8 @@ import {
   CircleUserRound,
   Package,
   type LucideIcon,
-  LayoutGrid,
   Sparkles,
+  Compass,
 } from "lucide-react";
 
 export type TAsideLink = {
@@ -12,6 +12,7 @@ export type TAsideLink = {
   icon: LucideIcon;
   href: string;
 };
+
 export const ASIDE_LINKS: TAsideLink[] = [
   {
     alt: "Profile",
@@ -24,9 +25,9 @@ export const ASIDE_LINKS: TAsideLink[] = [
     href: ClientRouting.projects().slash,
   },
   {
-    alt: "Feed",
-    icon: LayoutGrid,
-    href: ClientRouting.feed().slash,
+    alt: "Explore",
+    icon: Compass,
+    href: ClientRouting.explore().slash,
   },
   {
     alt: "Star",
