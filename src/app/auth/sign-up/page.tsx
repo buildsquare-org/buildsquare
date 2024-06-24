@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { signUp as signUpAction } from "@/actions/auth/sign-up";
 import { ClientRouting } from "@/models/routing/client.routing";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignUpPage({
   searchParams,
@@ -96,12 +97,23 @@ export default function SignUpPage({
         >
           Sign Up
         </Button>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-neutral-700/10 dark:text-indigo-400 text-center">
-            {searchParams.message}
-          </p>
-        )}
       </form>
+      <footer>
+        <p className="dark:text-neutral-300">
+          Already have an account?{" "}
+          <Link
+            href={ClientRouting.auth().signIn}
+            className="text-indigo-400 hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
+      </footer>
+      {searchParams?.message && (
+        <p className="mt-4 p-4 bg-neutral-700/10 dark:text-indigo-400 text-center">
+          {searchParams.message}
+        </p>
+      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { TFormAreas } from "./sign-in.models";
 import { signIn as signInAction } from "@/actions/auth/sign-in";
 import { ClientRouting } from "@/models/routing/client.routing";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignInPage({
   searchParams,
@@ -93,12 +94,23 @@ export default function SignInPage({
         >
           Sign In
         </Button>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-neutral-700/10 dark:text-indigo-400 text-center">
-            {searchParams.message}
-          </p>
-        )}
       </form>
+      <footer>
+        <p className="dark:text-neutral-300">
+          Dont have an account?{" "}
+          <Link
+            href={ClientRouting.auth().signUp}
+            className="text-indigo-400 hover:underline"
+          >
+            Sign Up
+          </Link>
+        </p>
+      </footer>
+      {searchParams?.message && (
+        <p className="mt-4 p-4 bg-neutral-700/10 dark:text-indigo-400 text-center">
+          {searchParams.message}
+        </p>
+      )}
     </div>
   );
 }
