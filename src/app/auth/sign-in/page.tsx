@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
+import { TextInput } from "@/components/ui/text-input";
 
 export default function SignInPage({
   searchParams,
@@ -57,22 +56,11 @@ export default function SignInPage({
         <label className="text-md" htmlFor="email">
           Email
         </label>
-        <input name="email" placeholder="you@example.com" required />
+        <TextInput type="email" />
         <label className="text-md" htmlFor="password">
           Password
         </label>
-        <input
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <SubmitButton formAction={signIn} pendingText="Signing In...">
-          Sign In
-        </SubmitButton>
-        <SubmitButton formAction={signUp} pendingText="Signing Up...">
-          Sign Up
-        </SubmitButton>
+        <TextInput type="password" />
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
