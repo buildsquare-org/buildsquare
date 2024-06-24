@@ -57,7 +57,7 @@ export default function SignInPage({
         <Label className="text-md" htmlFor="email">
           Email
         </Label>
-        <TextInput type="email" />
+        <TextInput type="email" placeholder="youremail@gmail.com" />
         <Label className="text-md" htmlFor="password">
           Password
         </Label>
