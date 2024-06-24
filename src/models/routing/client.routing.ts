@@ -9,7 +9,7 @@ export class ClientRouting {
     };
   }
 
-  public static feed() {
+  public static explore() {
     const basePath = "/";
 
     return { slash: basePath };
