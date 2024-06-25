@@ -1,12 +1,12 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export type RawProps = {
   children: ReactNode;
   isLoading?: boolean;
   asChild?: boolean;
   className?: HTMLElement["className"];
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const buttonVariants = cva(
   "flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",

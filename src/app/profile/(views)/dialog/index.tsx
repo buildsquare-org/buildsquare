@@ -15,16 +15,26 @@ export function Dialog() {
           </p>
         </header>
         <footer className="flex justify-center gap-5">
-          <Link href={ClientRouting.auth().signIn}>
-            <Button className="w-max" size="sm" asChild>
+          <Button className="w-max" size="sm" asChild>
+            <Link
+              href={
+                ClientRouting.auth().signUp +
+                `?next=${ClientRouting.profile().slash}`
+              }
+            >
               Sign Up
-            </Button>
-          </Link>
-          <Link href={ClientRouting.auth().signIn}>
-            <Button className="w-max" size="sm" variant="secondary" asChild>
+            </Link>
+          </Button>
+          <Button className="w-max" size="sm" variant="secondary" asChild>
+            <Link
+              href={
+                ClientRouting.auth().signIn +
+                `?next=${ClientRouting.profile().slash}`
+              }
+            >
               Sign In
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </footer>
       </article>
     </div>

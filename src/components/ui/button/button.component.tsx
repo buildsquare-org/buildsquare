@@ -1,9 +1,10 @@
-import { RefObject, forwardRef } from "react";
+import { forwardRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { Props, buttonVariants } from "./button.models";
 import { Spinner } from "../spinner";
 import { cn } from "@/utils/cn";
 
-const Button = forwardRef<HTMLButtonElement | RefObject<HTMLElement>, Props>(
+const Button = forwardRef<HTMLButtonElement, Props>(
   (
     {
       children,
@@ -12,15 +13,17 @@ const Button = forwardRef<HTMLButtonElement | RefObject<HTMLElement>, Props>(
       size,
       variant,
       className = "",
+      ...props
     },
-    ref: any,
+    ref,
   ) => {
-    const Element = asChild ? "div" : "button";
+    const Element = asChild ? Slot : "button";
 
     return (
       <Element
         ref={ref}
         className={cn(buttonVariants({ size, variant, className }))}
+        {...props}
       >
         {isLoading ? <Spinner /> : children}
       </Element>
