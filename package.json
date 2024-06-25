@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start"
   },
@@ -13,6 +13,7 @@
     "autoprefixer": "10.4.17",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "focus-trap-react": "^10.2.3",
     "framer-motion": "^11.2.11",
     "geist": "^1.2.1",
     "lucide-react": "^0.395.0",
@@ -23,7 +24,8 @@
     "react-hook-form": "^7.52.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "3.4.1",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/node": "20.11.5",

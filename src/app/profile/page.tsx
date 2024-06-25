@@ -4,16 +4,14 @@ import { Dialog } from "./(views)/dialog";
 
 type TViews = "authenticated" | "non-authenticated";
 
-export default async function ProtectedPage() {
+export default async function ProfilePage() {
   const supabase = createClient();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const userSessionStatus: TViews = user
-    ? "authenticated"
-    : "non-authenticated";
+  const userSessionStatus: TViews = "authenticated";
 
   const VIEWS: Record<TViews, JSX.Element> = {
     authenticated: <Profile userId={user?.id || ""} />,
