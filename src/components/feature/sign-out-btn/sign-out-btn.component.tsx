@@ -18,13 +18,10 @@ export function SignOutBtn() {
 
       const { error } = await supabase.auth.signOut();
 
-      console.log({ error });
-
       router.refresh();
 
       setLoading(false);
     } catch (e) {
-      console.log({ e });
       setLoading(false);
     }
   }
