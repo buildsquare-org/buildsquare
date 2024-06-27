@@ -1,7 +1,7 @@
 export type TGeneralSectionFormAreas = {
   name: string;
   description: string;
-  picture_url: string;
+  picture: File[];
 };
 
 export type TGeneralSectionProps = {

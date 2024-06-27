@@ -16,7 +16,7 @@ export async function Profile({ userId }: { userId: string }) {
     .single();
 
   return (
-    <div className="flex gap-2 dark:text-neutral-200">
+    <div className="flex gap-2">
       <ConfigModalTrigger>
         <Button variant="secondary">Edit profile</Button>
       </ConfigModalTrigger>
