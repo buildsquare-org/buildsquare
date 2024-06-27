@@ -1,7 +1,5 @@
 import { SignOutBtn } from "@/components/feature/sign-out-btn";
 import { Button } from "@/components/ui/button";
-import { ClientRouting } from "@/models/routing/client.routing";
-import Link from "next/link";
 import {
   ConfigModal,
   ConfigModalTrigger,
@@ -22,8 +20,8 @@ export async function Profile({ userId }: { userId: string }) {
       <ConfigModalTrigger>
         <Button variant="secondary">Edit profile</Button>
       </ConfigModalTrigger>
-      <SignOutBtn />
       <ConfigModal />
+      <SignOutBtn />
     </div>
   );
 }
