@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  ::-webkit-scrollbar {
+    @apply dark:bg-neutral-700;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply dark:bg-neutral-600 dark:rounded-sm m-1;
+  }
+}
