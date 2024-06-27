@@ -20,7 +20,7 @@ export async function Profile({ userId }: { userId: string }) {
       <ConfigModalTrigger>
         <Button variant="secondary">Edit profile</Button>
       </ConfigModalTrigger>
-      <ConfigModal />
+      <ConfigModal userId={userId} />
       <SignOutBtn />
     </div>
   );

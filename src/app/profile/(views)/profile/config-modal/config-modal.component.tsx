@@ -1,15 +1,33 @@
 "use client";
 
-import { ClientRouting } from "@/models/routing/client.routing";
 import { SectionLink } from "./components/section-link";
-import { CONFIG_MODAL_SECTIONS } from "./store";
+import { CONFIG_MODAL_SECTIONS, TConfigModalSection } from "./store";
 import { Modal } from "@/components/ui/modal";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useConfigModalStore } from "./store";
 import { ReactNode } from "react";
+import { GeneralSection } from "./sections/general";
+import { UsernameSection } from "./sections/username";
+import { LinksSection } from "./sections/links";
 
-export function ConfigModal() {
+function ModalSectionViews({
+  userId,
+  section,
+}: {
+  userId: string;
+  section: TConfigModalSection;
+}) {
+  const MODAL_SECTIONS: Record<TConfigModalSection, JSX.Element> = {
+    general: <GeneralSection userId={userId} />,
+    username: <UsernameSection userId={userId} />,
+    links: <LinksSection userId={userId} />,
+  };
+
+  return MODAL_SECTIONS[section];
+}
+
+export function ConfigModal({ userId }: { userId: string }) {
   const isModalOpen = useConfigModalStore((state) => state.isOpen);
   const closeModal = useConfigModalStore((state) => state.close);
   const currentSection = useConfigModalStore((state) => state.currentSection);
@@ -40,7 +58,9 @@ export function ConfigModal() {
               <X />
             </Button>
           </header>
-          <main className="w-full flex flex-col"></main>
+          <main className="w-full flex flex-col">
+            <ModalSectionViews userId={userId} section={currentSection} />
+          </main>
         </section>
       </div>
     </Modal>

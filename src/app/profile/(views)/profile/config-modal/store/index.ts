@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const CONFIG_MODAL_SECTIONS = ["general", "links"] as const;
+export const CONFIG_MODAL_SECTIONS = ["general", "username", "links"] as const;
 export type TConfigModalSection = (typeof CONFIG_MODAL_SECTIONS)[number];
 
 type TConfigModalStore = {
