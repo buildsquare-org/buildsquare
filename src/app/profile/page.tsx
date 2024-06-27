@@ -11,7 +11,9 @@ export default async function ProfilePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const userSessionStatus: TViews = "authenticated";
+  const userSessionStatus: TViews = user
+    ? "authenticated"
+    : "non-authenticated";
 
   const VIEWS: Record<TViews, JSX.Element> = {
     authenticated: <Profile userId={user?.id || ""} />,
