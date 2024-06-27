@@ -3,7 +3,10 @@ import { TProps } from "./label.models";
 
 export function Label({ children, className, ...props }: TProps) {
   return (
-    <label {...props} className={cn("dark:text-neutral-300", className)}>
+    <label
+      {...props}
+      className={cn("dark:text-neutral-300 text-sm", className)}
+    >
       {children}
     </label>
   );

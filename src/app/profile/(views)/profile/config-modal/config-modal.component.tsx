@@ -37,9 +37,13 @@ export function ConfigModal({ userId }: { userId: string }) {
   }
 
   return (
-    <Modal className="w-full max-w-2xl h-96" open={isModalOpen} onClose={close}>
+    <Modal
+      className="w-full max-w-2xl h-96 p-0"
+      open={isModalOpen}
+      onClose={close}
+    >
       <div className="grid grid-cols-6 h-full w-full">
-        <aside className="col-span-2 border-r border-neutral-700/60 pr-2">
+        <aside className="col-span-2 border-r border-neutral-700/60">
           <nav className="flex flex-col h-full">
             {CONFIG_MODAL_SECTIONS.map((section, i) => (
               <SectionLink key={i} section={section}>
@@ -48,7 +52,7 @@ export function ConfigModal({ userId }: { userId: string }) {
             ))}
           </nav>
         </aside>
-        <section className="col-span-4 flex flex-col pl-2">
+        <section className="col-span-4 flex flex-col p-2 overflow-y-auto">
           <header className="flex justify-between items-center w-full">
             <h1 className="dark:text-neutral-200 font-semibold">
               {currentSection.split("")[0].toUpperCase() +
@@ -58,7 +62,7 @@ export function ConfigModal({ userId }: { userId: string }) {
               <X />
             </Button>
           </header>
-          <main className="w-full flex flex-col">
+          <main className="w-full h-full flex flex-col">
             <ModalSectionViews userId={userId} section={currentSection} />
           </main>
         </section>
