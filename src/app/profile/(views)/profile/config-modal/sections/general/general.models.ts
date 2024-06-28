@@ -1,9 +1,12 @@
+import { Database } from "@/models/supabase";
+
 export type TGeneralSectionFormAreas = {
   name: string;
   description: string;
-  picture_url: string;
+  picture: File[];
 };
 
 export type TGeneralSectionProps = {
-  userId: string;
+  profile: Database["public"]["Tables"]["profile"]["Row"];
+  onClose: () => void;
 };

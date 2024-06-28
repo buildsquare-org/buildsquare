@@ -29,11 +29,12 @@ export function SectionLink({
 
   return (
     <Button
-      className={`flex justify-start rounded-sm font-medium px-2 ${isActive ? "dark:text-neutral-300 dark:bg-neutral-700" : "dark:text-neutral-400 dark:hover:text-neutral-300"}`}
+      className={`flex justify-start rounded-sm font-medium p-3 py-2 ${isActive ? "dark:text-neutral-300 dark:bg-neutral-700" : "dark:text-neutral-400 dark:hover:text-neutral-300"}`}
       onClick={() => {
         setCurrentSection(section);
       }}
       variant="ghost"
+      size="lg"
     >
       {children}
     </Button>

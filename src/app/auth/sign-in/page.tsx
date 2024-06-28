@@ -31,7 +31,12 @@ export default function SignInPage({
       return;
     }
 
-    router.push(searchParams.next);
+    if (searchParams.next) {
+      router.push(searchParams.next);
+      return;
+    }
+
+    router.push(ClientRouting.explore().slash);
   }
   return (
     <div className="flex flex-col w-full h-full items-center justify-center gap-5">
@@ -99,7 +104,10 @@ export default function SignInPage({
         <p className="dark:text-neutral-300">
           Dont have an account?{" "}
           <Link
-            href={ClientRouting.auth().signUp}
+            href={
+              ClientRouting.auth().signUp +
+              `${searchParams.next && `?next=${searchParams.next}`}`
+            }
             className="text-indigo-400 hover:underline"
           >
             Sign Up
