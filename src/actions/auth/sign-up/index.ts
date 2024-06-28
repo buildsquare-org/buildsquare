@@ -30,14 +30,10 @@ export async function signUp(
       },
     });
 
-    console.log({ error });
-
     if (error) throw new Error("there has been an unkown error signing up");
 
     return { error: null };
   } catch (error) {
-    console.log({ error });
-    console.log(...Value.Errors(AuthFormDataSchema, formData));
     return { error: "There has been an error" };
   }
 }
