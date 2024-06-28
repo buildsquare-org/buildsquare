@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { RevalidatePathAction } from "@/actions/revalidate-path";
 import { ClientRouting } from "@/models/routing/client.routing";
 
-export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
+export function GeneralSection({ profile }: TGeneralSectionProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const { handleSubmit, register, formState, watch, getFieldState, setError } =
@@ -91,9 +91,8 @@ export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
 
       await RevalidatePathAction(ClientRouting.profile().slash, "page");
       router.refresh();
-      onClose();
     } catch (error) {
-      console.log({ error });
+      //
     }
   }
 
