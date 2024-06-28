@@ -6,6 +6,8 @@ import {
 } from "./config-modal/config-modal.component";
 import { createClient } from "@/utils/supabase/server";
 
+export const revalidate = 60 * 6; // cache 6 hours
+
 export async function Profile({ userId }: { userId: string }) {
   const supabase = createClient();
 
