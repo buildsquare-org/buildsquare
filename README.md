@@ -7,7 +7,7 @@ Build Square is a web app made for developers who want to build in public, shari
 ### profile
 
 - [x] profile is created automatically on sign up, assigning the profile a random username
-- [ ] customize profile
+- [x] customize profile
   1. - [x] can edit username
   2. - [x] can edit name
   3. - [x] can edit description
