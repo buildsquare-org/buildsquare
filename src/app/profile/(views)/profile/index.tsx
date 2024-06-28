@@ -35,7 +35,7 @@ export async function Profile({ userId }: { userId: string }) {
             <div className="dark:text-neutral-200 flex flex-col flex-1">
               <div className="flex flex-col">
                 {profile.name && (
-                  <h1 className="font-semibold dark:text-neutral-200 text-md">
+                  <h1 className="font-medium leading-4 dark:text-neutral-200 text-md">
                     {profile.name}
                   </h1>
                 )}
