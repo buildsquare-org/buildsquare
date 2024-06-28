@@ -8,5 +8,4 @@ export type TGeneralSectionFormAreas = {
 
 export type TGeneralSectionProps = {
   profile: Database["public"]["Tables"]["profile"]["Row"];
-  onClose: () => void;
 };

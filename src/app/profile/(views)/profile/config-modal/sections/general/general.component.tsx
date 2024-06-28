@@ -12,12 +12,11 @@ import { Button } from "@/components/ui/button";
 import { TextArea } from "@/components/ui/text-area/text-area.component";
 import { ImageInput } from "@/components/feature/image-input/image-input.component";
 import { createClient } from "@/utils/supabase/client";
-import { BucketRouting } from "@/models/buckets";
 import { useRouter } from "next/navigation";
 import { RevalidatePathAction } from "@/actions/revalidate-path";
 import { ClientRouting } from "@/models/routing/client.routing";
 
-export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
+export function GeneralSection({ profile }: TGeneralSectionProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const { handleSubmit, register, formState, watch, getFieldState, setError } =
@@ -58,20 +57,18 @@ export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
           setError("picture", { message: `max image size is 2 mb` });
         }
 
-        const imagePath = BucketRouting.profile(profile.user_id).getPath();
+        const imagePath = `${profile.user_id}/${crypto.randomUUID()}`;
 
         const { data: storageData, error: errorUploadingImage } =
-          await supabase.storage.from("images").upload(imagePath, imageFile, {
-            upsert: true,
-          });
+          await supabase.storage.from("images").upload(imagePath, imageFile);
 
         if (!storageData || errorUploadingImage) {
           throw new Error("error uploading image");
         }
 
-        const { publicUrl } = BucketRouting.profile(
-          profile.user_id,
-        ).getPublicUrl();
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("images").getPublicUrl(storageData.path);
 
         updatedProfile.picture_url = publicUrl;
       }
@@ -89,11 +86,28 @@ export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
 
       if (error) throw new Error("error trying to update profile");
 
+      if (profile.picture_url) {
+        // if the user had a picture, we remove it
+        //
+        try {
+          const oldImagePaths = profile.picture_url.split("/");
+
+          const oldImagePath1 = oldImagePaths[oldImagePaths.length - 2];
+          const oldImagePath2 = oldImagePaths[oldImagePaths.length - 1];
+
+          if (!oldImagePath2 || !oldImagePath1)
+            throw new Error("could not ge tpaths for image");
+
+          const finalImagePath = `${oldImagePath1}/${oldImagePath2}`;
+
+          await supabase.storage.from("images").remove([finalImagePath]);
+        } catch (error) {}
+      }
+
       await RevalidatePathAction(ClientRouting.profile().slash, "page");
       router.refresh();
-      onClose();
     } catch (error) {
-      console.log({ error });
+      //
     }
   }
 

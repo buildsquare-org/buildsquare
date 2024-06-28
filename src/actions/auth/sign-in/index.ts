@@ -31,8 +31,6 @@ export async function signIn(
 
     return { error: null };
   } catch (error) {
-    console.log({ error });
-    console.log(...Value.Errors(AuthFormDataSchema, formData));
     return { error: "There has been an error" };
   }
 }

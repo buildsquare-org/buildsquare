@@ -1,3 +1,5 @@
+import { Database } from "@/models/supabase";
+
 export type TLinksSectionFormAreas = {
   github_url: string;
   twitter_url: string;
@@ -6,5 +8,5 @@ export type TLinksSectionFormAreas = {
 };
 
 export type TLinksSectionProps = {
-  userId: string;
+  profile: Database["public"]["Tables"]["profile"]["Row"];
 };
