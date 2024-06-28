@@ -29,7 +29,7 @@ function ModalSectionViews({
         defaultUsername={profile.username}
       />
     ),
-    links: <LinksSection userId={profile.user_id} />,
+    links: <LinksSection profile={profile} />,
   };
 
   return MODAL_SECTIONS[section];
