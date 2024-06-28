@@ -3,5 +3,6 @@ export type TUsernameSectionFormAreas = {
 };
 
 export type TUsernameSectionProps = {
+  defaultUsername: string;
   userId: string;
 };

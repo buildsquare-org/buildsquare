@@ -23,7 +23,12 @@ function ModalSectionViews({
 }) {
   const MODAL_SECTIONS: Record<TConfigModalSection, JSX.Element> = {
     general: <GeneralSection onClose={onClose} profile={profile} />,
-    username: <UsernameSection userId={profile.user_id} />,
+    username: (
+      <UsernameSection
+        userId={profile.user_id}
+        defaultUsername={profile.username}
+      />
+    ),
     links: <LinksSection userId={profile.user_id} />,
   };
 
