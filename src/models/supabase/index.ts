@@ -19,7 +19,7 @@ export type Database = {
           name: string | null;
           picture_url: string | null;
           twitter_url: string | null;
-          user_id: string | null;
+          user_id: string;
           username: string;
           wild_link: string | null;
         };

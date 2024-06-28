@@ -1,3 +1,5 @@
+import { Database } from "@/models/supabase";
+
 export type TGeneralSectionFormAreas = {
   name: string;
   description: string;
@@ -5,5 +7,6 @@ export type TGeneralSectionFormAreas = {
 };
 
 export type TGeneralSectionProps = {
-  userId: string;
+  profile: Database["public"]["Tables"]["profile"]["Row"];
+  onClose: () => void;
 };

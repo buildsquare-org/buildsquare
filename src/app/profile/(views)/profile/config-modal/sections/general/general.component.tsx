@@ -1,27 +1,37 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import type { Database } from "@/models/supabase";
 import { TextInput } from "@/components/ui/text-input";
 import {
   TGeneralSectionFormAreas,
   TGeneralSectionProps,
 } from "./general.models";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { TextArea } from "@/components/ui/text-area/text-area.component";
 import { ImageInput } from "@/components/feature/image-input/image-input.component";
 import { createClient } from "@/utils/supabase/client";
-import { useState } from "react";
-import { UploadImage } from "@/actions/image";
+import { BucketRouting } from "@/models/buckets";
+import { useRouter } from "next/navigation";
+import { RevalidatePathAction } from "@/actions/revalidate-path";
+import { ClientRouting } from "@/models/routing/client.routing";
 
-export function GeneralSection({ userId }: TGeneralSectionProps) {
+export function GeneralSection({ profile, onClose }: TGeneralSectionProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const { handleSubmit, register, formState, watch, getFieldState, setError } =
     useForm<TGeneralSectionFormAreas>({
       mode: "onSubmit",
-      defaultValues: { name: "", description: "" },
+      defaultValues: {
+        name: profile.name || "",
+        description: profile.description || "",
+      },
     });
 
   const { isDirty, isValid, isSubmitting, errors } = formState;
+
+  const router = useRouter();
 
   const descriptionMaxLenght = 160;
   const descriptionInputValue = watch("description");
@@ -33,22 +43,57 @@ export function GeneralSection({ userId }: TGeneralSectionProps) {
   const oneMegaByteInBytes = 1000000;
 
   async function updateGeneralProfileInfo(data: TGeneralSectionFormAreas) {
-    const client = createClient();
+    if (((!isDirty || !isValid) && !imageFile) || isSubmitting) return;
 
-    if (imageFile && imageFile.size) {
-      const imageFileSize = imageFile?.size;
+    const supabase = createClient();
 
-      if (imageFileSize > maxImageSizeInMB * oneMegaByteInBytes) {
-        setError("picture", { message: `max image size is 2 mb` });
+    const updatedProfile: Database["public"]["Tables"]["profile"]["Update"] =
+      {};
+
+    try {
+      if (imageFile && imageFile.size) {
+        const imageFileSize = imageFile?.size;
+
+        if (imageFileSize > maxImageSizeInMB * oneMegaByteInBytes) {
+          setError("picture", { message: `max image size is 2 mb` });
+        }
+
+        const imagePath = BucketRouting.profile(profile.user_id).getPath();
+
+        const { data: storageData, error: errorUploadingImage } =
+          await supabase.storage.from("images").upload(imagePath, imageFile, {
+            upsert: true,
+          });
+
+        if (!storageData || errorUploadingImage) {
+          throw new Error("error uploading image");
+        }
+
+        const { publicUrl } = BucketRouting.profile(
+          profile.user_id,
+        ).getPublicUrl();
+
+        updatedProfile.picture_url = publicUrl;
       }
 
-      const formData = new FormData();
+      const { name, description } = data;
 
-      formData.append("image", imageFile);
+      updatedProfile.name = name;
+      updatedProfile.description = description;
 
-      const { status } = await UploadImage(formData);
+      const { error } = await supabase
+        .from("profile")
+        .update(updatedProfile)
+        .eq("user_id", profile.user_id)
+        .single();
 
-      console.log({ status });
+      if (error) throw new Error("error trying to update profile");
+
+      await RevalidatePathAction(ClientRouting.profile().slash, "page");
+      router.refresh();
+      onClose();
+    } catch (error) {
+      console.log({ error });
     }
   }
 
@@ -67,6 +112,7 @@ export function GeneralSection({ userId }: TGeneralSectionProps) {
             onSelect={(file) => {
               setImageFile(file);
             }}
+            defaultImageUrl={profile.picture_url}
           />
           <div className="flex gap-1 flex-col">
             {imageFile && (
