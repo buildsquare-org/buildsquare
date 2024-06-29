@@ -68,6 +68,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            defaultValue={profile.linkedin_url ?? ""}
           />
           {errors.linkedin_url?.message && (
             <p className="dark:text-rose-400">{errors.linkedin_url.message}</p>
@@ -102,6 +103,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            defaultValue={profile.twitter_url ?? ""}
           />
           {errors.twitter_url?.message && (
             <p className="dark:text-rose-400">{errors.twitter_url.message}</p>
@@ -134,6 +136,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            defaultValue={profile.github_url ?? ""}
           />
           {errors.github_url?.message && (
             <p className="dark:text-rose-400">{errors.github_url.message}</p>
@@ -160,6 +163,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            defaultValue={profile.wild_link ?? ""}
           />
           {errors.wild_link?.message && (
             <p className="dark:text-rose-400">{errors.wild_link.message}</p>

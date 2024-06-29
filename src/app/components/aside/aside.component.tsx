@@ -1,16 +1,17 @@
-"use client";
-
-import { ASIDE_LINKS } from "./aside.models";
-import { NavLink } from "./nav-link";
+import { Suspense } from "react";
+import { NavLinkList } from "./nav-link-list/nav-link-list.component";
+import { Session } from "./session";
+import { SessionSkeleton } from "./session/session-skeleton.component";
 
 export function Aside() {
   return (
-    <aside className="h-screen p-3 bg-neutral-900 flex items-center justify-center border-r dark:border-neutral-800">
-      <nav className="flex flex-col gap-2">
-        {ASIDE_LINKS.map((item, i) => (
-          <NavLink key={i} item={item} />
-        ))}
+    <aside className="h-screen px-3 py-5 bg-neutral-900 flex flex-col items-center border-r dark:border-neutral-800">
+      <nav className="flex flex-col gap-2 my-auto">
+        <NavLinkList />
       </nav>
+      <Suspense fallback={<SessionSkeleton />}>
+        <Session />
+      </Suspense>
     </aside>
   );
 }

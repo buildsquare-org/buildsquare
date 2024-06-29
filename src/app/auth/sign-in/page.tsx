@@ -36,6 +36,7 @@ export default function SignInPage({
       return;
     }
 
+    router.refresh();
     router.push(ClientRouting.explore().slash);
   }
   return (
@@ -105,8 +106,9 @@ export default function SignInPage({
           Dont have an account?{" "}
           <Link
             href={
-              ClientRouting.auth().signUp +
-              `${searchParams.next && `?next=${searchParams.next}`}`
+              ClientRouting.auth().signUp + searchParams.next
+                ? `?next=${searchParams.next}`
+                : ""
             }
             className="text-indigo-400 hover:underline"
           >
