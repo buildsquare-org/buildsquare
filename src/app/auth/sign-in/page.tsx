@@ -36,6 +36,7 @@ export default function SignInPage({
       return;
     }
 
+    router.refresh();
     router.push(ClientRouting.explore().slash);
   }
   return (

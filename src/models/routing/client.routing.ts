@@ -1,5 +1,3 @@
-import { TConfigModalSection } from "@/app/profile/(views)/profile/config-modal/store";
-
 export class ClientRouting {
   public static auth() {
     const basePath = "/auth";
@@ -22,8 +20,6 @@ export class ClientRouting {
 
     return {
       slash: basePath,
-      configSection: (section: TConfigModalSection) =>
-        `${basePath}?config-section=${section}`,
     };
   }
 
