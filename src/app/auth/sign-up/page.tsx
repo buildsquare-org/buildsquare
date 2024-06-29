@@ -102,10 +102,7 @@ export default function SignUpPage({
         <p className="dark:text-neutral-300">
           Already have an account?{" "}
           <Link
-            href={
-              ClientRouting.auth().signIn +
-              `${searchParams.next && `?next=${searchParams.next}`}`
-            }
+            href={`${ClientRouting.auth().signIn}${searchParams.next ? "?next=" + searchParams.next : ""} `}
             className="text-indigo-400 hover:underline"
           >
             Sign In
