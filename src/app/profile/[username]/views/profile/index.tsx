@@ -45,9 +45,11 @@ export async function Profile({
               )}
             </div>
           </div>
-          <ConfigModalTrigger>
-            <Button variant="secondary">Edit profile</Button>
-          </ConfigModalTrigger>
+          {sessionUserId === profile.user_id && (
+            <ConfigModalTrigger>
+              <Button variant="secondary">Edit profile</Button>
+            </ConfigModalTrigger>
+          )}
         </header>
       </article>
     </>
