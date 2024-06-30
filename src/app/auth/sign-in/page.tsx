@@ -32,6 +32,7 @@ export default function SignInPage({
     }
 
     if (searchParams.next) {
+      router.refresh();
       router.push(searchParams.next);
       return;
     }
