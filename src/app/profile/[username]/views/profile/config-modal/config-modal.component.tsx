@@ -15,11 +15,9 @@ import { Database } from "@/models/supabase";
 function ModalSectionViews({
   profile,
   section,
-  onClose,
 }: {
   profile: Database["public"]["Tables"]["profile"]["Row"];
   section: TConfigModalSection;
-  onClose: () => void;
 }) {
   const MODAL_SECTIONS: Record<TConfigModalSection, JSX.Element> = {
     general: <GeneralSection profile={profile} />,
@@ -75,11 +73,7 @@ export function ConfigModal({
             </Button>
           </header>
           <main className="w-full grid p-3 overflow-y-auto h-[calc(500px-53px)] will-change-scroll">
-            <ModalSectionViews
-              onClose={close}
-              profile={profile}
-              section={currentSection}
-            />
+            <ModalSectionViews profile={profile} section={currentSection} />
           </main>
         </section>
       </div>

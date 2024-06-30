@@ -104,7 +104,10 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
         } catch (error) {}
       }
 
-      await RevalidatePathAction(ClientRouting.profile().slash, "page");
+      await RevalidatePathAction(
+        ClientRouting.profile().getbyUsername(profile.username),
+        "page",
+      );
       router.refresh();
     } catch (error) {
       //
