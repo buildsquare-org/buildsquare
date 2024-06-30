@@ -4,11 +4,13 @@ import { Value } from "@sinclair/typebox/value";
 const EnvironmentSchema = Type.Object({
   NEXT_PUBLIC_SUPABASE_URL: Type.String(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: Type.String(),
-  NODE_ENV: Type.Union([
-    Type.Literal("test"),
-    Type.Literal("production"),
-    Type.Literal("development"),
-  ]),
+  NODE_ENV: Type.Optional(
+    Type.Union([
+      Type.Literal("test"),
+      Type.Literal("production"),
+      Type.Literal("development"),
+    ]),
+  ),
 });
 
 export function register() {
