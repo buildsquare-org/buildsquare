@@ -19,7 +19,7 @@ export class ClientRouting {
     const basePath = "/profile";
 
     return {
-      slash: basePath,
+      getbyUsername: (username: string) => `${basePath}/${username}`,
     };
   }
 

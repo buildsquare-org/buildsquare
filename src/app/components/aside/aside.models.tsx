@@ -1,11 +1,5 @@
 import { ClientRouting } from "@/models/routing/client.routing";
-import {
-  CircleUserRound,
-  Package,
-  type LucideIcon,
-  Sparkles,
-  Compass,
-} from "lucide-react";
+import { Package, Sparkles, Compass, type LucideIcon } from "lucide-react";
 
 export type TAsideLink = {
   alt: string;
@@ -14,11 +8,6 @@ export type TAsideLink = {
 };
 
 export const ASIDE_LINKS: TAsideLink[] = [
-  {
-    alt: "Profile",
-    icon: CircleUserRound,
-    href: ClientRouting.profile().slash,
-  },
   {
     alt: "Projects",
     icon: Package,
