@@ -10,52 +10,38 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/drop-down/drop-down.component";
 import { ClientRouting } from "@/models/routing/client.routing";
-import { createClient } from "@/utils/supabase/server";
 import { ArrowUpRight, Key } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SessionSkeleton } from "./session-skeleton.component";
+import { Database } from "@/models/supabase";
 
 type TViews = "authenticated" | "non-authenticated";
 
-export async function Session() {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve("");
-    }, 4000),
-  );
-
+export async function Session({
+  profile,
+}: {
+  profile: Database["public"]["Tables"]["profile"]["Row"] | null;
+}) {
   const VIEWS: Record<TViews, JSX.Element> = {
     authenticated: (
       <Suspense fallback={<SessionSkeleton />}>
-        <Profile userId={user?.id || ""} />
+        <Profile profile={profile!} />
       </Suspense>
     ),
     "non-authenticated": <LinkToAuthPage />,
   };
 
-  const role: TViews = user ? "authenticated" : "non-authenticated";
+  const role: TViews = profile ? "authenticated" : "non-authenticated";
 
   return VIEWS[role];
 }
 
-async function Profile({ userId }: { userId: string }) {
-  const supabase = createClient();
-
-  const { data: profile } = await supabase
-    .from("profile")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
-
-  if (!profile) return <LinkToAuthPage />;
-
+async function Profile({
+  profile,
+}: {
+  profile: Database["public"]["Tables"]["profile"]["Row"];
+}) {
   return (
     <>
       <DropdownMenu>
@@ -75,7 +61,11 @@ async function Profile({ userId }: { userId: string }) {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <Link href={ClientRouting.profile().slash}>Profile</Link>
+              <Link
+                href={ClientRouting.profile().getbyUsername(profile.username)}
+              >
+                Profile
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
@@ -100,7 +90,7 @@ async function Profile({ userId }: { userId: string }) {
 
 function LinkToAuthPage() {
   return (
-    <Link href={ClientRouting.auth().signIn} title="sign in">
+    <Link href={ClientRouting.auth().signIn} className="px-1.5">
       <Key className="dark:text-indigo-400" />
     </Link>
   );

@@ -3,21 +3,17 @@ import {
   ConfigModal,
   ConfigModalTrigger,
 } from "./config-modal/config-modal.component";
-import { createClient } from "@/utils/supabase/server";
+import { Database } from "@/models/supabase";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
-export async function Profile({ userId }: { userId: string }) {
-  const supabase = createClient();
-
-  const { data: profile } = await supabase
-    .from("profile")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
-
-  if (!profile) return <p>something went wrong</p>;
-
+export async function Profile({
+  profile,
+  sessionUserId,
+}: {
+  profile: Database["public"]["Tables"]["profile"]["Row"];
+  sessionUserId: string | null;
+}) {
   return (
     <>
       <ConfigModal profile={profile} />
