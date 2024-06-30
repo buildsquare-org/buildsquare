@@ -7,6 +7,7 @@ import { headers } from "next/headers";
 
 export async function signUp(
   formData: TAuthFormData,
+  next?: string,
 ): Promise<{ error: string | null }> {
   try {
     const isFormDataValid = Value.Check(AuthFormDataSchema, formData);
@@ -26,7 +27,7 @@ export async function signUp(
       email,
       password,
       options: {
-        emailRedirectTo: `${origin}/auth/callback`,
+        emailRedirectTo: `${origin}/auth/callback${next ? `?next${next}` : ""}`,
       },
     });
 

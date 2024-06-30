@@ -40,7 +40,13 @@ function UnauthenticatedView() {
   return (
     <aside className="h-screen px-3 py-5 bg-neutral-900 flex flex-col items-center border-r dark:border-neutral-800">
       <nav className="flex flex-col gap-2 my-auto">
-        <ProfileLink href={ClientRouting.auth().signIn} />
+        <ProfileLink
+          href={
+            ClientRouting.auth().signIn +
+            "?next=" +
+            ClientRouting.profile().slash
+          }
+        />
         <NavLinkList />
       </nav>
       <Session profile={null} />
