@@ -50,7 +50,7 @@ async function Profile({
             <img
               src={
                 profile?.picture_url ??
-                `https://avatar.vercel.sh/${profile?.id}`
+                `https://avatar.vercel.sh/${profile?.username}`
               }
               className="h-9 w-9 rounded-full object-cover object-center"
             />
