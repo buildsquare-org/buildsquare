@@ -24,7 +24,7 @@ export default function SignUpPage({
   const router = useRouter();
 
   async function signUp(data: TFormAreas) {
-    const { error } = await signUpAction(data);
+    const { error } = await signUpAction(data, searchParams.next ?? undefined);
 
     if (error) {
       router.push(ClientRouting.auth().signIn + `?message=${error}`);
