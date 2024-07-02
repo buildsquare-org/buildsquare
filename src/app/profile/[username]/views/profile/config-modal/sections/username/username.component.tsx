@@ -11,6 +11,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { BadgeCheck, BadgeX, Ban, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { ClientRouting } from "@/models/routing/client.routing";
 
 type TFormAreas = {
   username: string;
@@ -99,6 +100,7 @@ export function UsernameSection({
       return;
     }
 
+    router.replace(ClientRouting.profile().getbyUsername(debouncedInputValue));
     router.refresh();
   }
 
@@ -133,6 +135,7 @@ export function UsernameSection({
             },
           })}
           defaultValue={defaultUsername}
+          disabled={isSubmitting}
         />
         {errors.username?.message ? (
           <p className="dark:text-rose-400">{errors.username.message}</p>

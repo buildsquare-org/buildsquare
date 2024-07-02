@@ -11,7 +11,8 @@ const ImageInput = forwardRef<HTMLInputElement, TProps>(
       containerClassName = "",
       imageClassName = "",
       defaultImageUrl,
-      onSelect,
+      onSelectImage,
+      disabled,
       ...props
     },
     ref,
@@ -32,18 +33,19 @@ const ImageInput = forwardRef<HTMLInputElement, TProps>(
           ref={ref}
           type="file"
           accept="image/*"
+          disabled={disabled}
           onChange={(e) => {
             if (e.target && e.target.files) {
               const img = e.target.files[0];
 
               if (!img) {
                 setSelectedImage(null);
-                onSelect(null);
+                onSelectImage(null);
                 return;
               }
 
               setSelectedImage(URL.createObjectURL(img));
-              onSelect(img);
+              onSelectImage(img);
             }
           }}
           className={cn("opacity-0 cursor-pointer z-10", imageClassName)}
@@ -59,10 +61,10 @@ const ImageInput = forwardRef<HTMLInputElement, TProps>(
           />
         )}
         <div
-          className={`absolute top-0 left-0 pointer-events-none ${selectedImage && "group-hover:bg-neutral-900/20"} w-full h-full flex items-center justify-center`}
+          className={`absolute top-0 left-0 pointer-events-none ${selectedImage && !disabled && "group-hover:bg-neutral-900/20"} w-full h-full flex items-center justify-center`}
         >
           <Camera
-            className={`dark:text-neutral-300 transition-all duration-150 ${selectedImage && "opacity-0 group-hover:opacity-100"}`}
+            className={`dark:text-neutral-300 transition-all duration-150 ${selectedImage ? "opacity-0" : ""} ${selectedImage && !disabled ? "group-hover:opacity-100" : ""}`}
           />
         </div>
       </div>
