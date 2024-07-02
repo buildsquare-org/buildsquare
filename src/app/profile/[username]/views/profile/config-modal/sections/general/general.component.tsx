@@ -42,7 +42,7 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
   const oneMegaByteInBytes = 1000000;
 
   async function updateGeneralProfileInfo(data: TGeneralSectionFormAreas) {
-    if (!isDirty || !isValid || isSubmitting) return;
+    if (!isValid || isSubmitting) return;
 
     const supabase = createClient();
 
