@@ -1,8 +1,9 @@
+import { InputHTMLAttributes } from "react";
 import { type ClassNameValue } from "tailwind-merge";
 
-export type TProps = {
+export type TProps = InputHTMLAttributes<HTMLInputElement> & {
   defaultImageUrl: string | null;
   imageClassName?: ClassNameValue;
   containerClassName?: ClassNameValue;
-  onSelect: (file: File | null) => void;
+  onSelectImage: (file: File | null) => void;
 };

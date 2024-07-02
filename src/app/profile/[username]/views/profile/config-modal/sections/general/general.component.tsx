@@ -42,7 +42,7 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
   const oneMegaByteInBytes = 1000000;
 
   async function updateGeneralProfileInfo(data: TGeneralSectionFormAreas) {
-    if (((!isDirty || !isValid) && !imageFile) || isSubmitting) return;
+    if (!isDirty || !isValid || isSubmitting) return;
 
     const supabase = createClient();
 
@@ -126,10 +126,11 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
           <ImageInput
             imageClassName="w-full h-full object-cover obejct-center"
             containerClassName="rounded-md w-24 h-24"
-            onSelect={(file) => {
+            onSelectImage={(file) => {
               setImageFile(file);
             }}
             defaultImageUrl={profile.picture_url}
+            disabled={isSubmitting}
           />
           <div className="flex gap-1 flex-col">
             {imageFile && (
@@ -157,6 +158,7 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
                 message: "name must contain less than 160 letter(s)",
               },
             })}
+            disabled={isSubmitting}
           />
           <div className="flex gap-1 justify-between">
             <p className="dark:text-rose-400 text-sm">
@@ -181,6 +183,7 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
                 message: "description has a limit of 160 letter(s)",
               },
             })}
+            disabled={isSubmitting}
             className="h-28 resize-none"
           />
           <div className="flex gap-1 justify-between">

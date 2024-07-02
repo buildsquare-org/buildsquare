@@ -68,6 +68,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            disabled={isSubmitting}
             defaultValue={profile.linkedin_url ?? ""}
           />
           {errors.linkedin_url?.message && (
@@ -103,6 +104,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            disabled={isSubmitting}
             defaultValue={profile.twitter_url ?? ""}
           />
           {errors.twitter_url?.message && (
@@ -136,6 +138,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            disabled={isSubmitting}
             defaultValue={profile.github_url ?? ""}
           />
           {errors.github_url?.message && (
@@ -163,6 +166,7 @@ export function LinksSection({ profile }: TLinksSectionProps) {
               },
               required: false,
             })}
+            disabled={isSubmitting}
             defaultValue={profile.wild_link ?? ""}
           />
           {errors.wild_link?.message && (
