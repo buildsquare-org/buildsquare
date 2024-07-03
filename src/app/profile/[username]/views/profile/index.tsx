@@ -6,6 +6,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database } from "@/models/supabase";
 import { NewProjectBtn } from "./new-project-btw";
+import { ProjectList } from "./project-list";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
@@ -62,8 +63,9 @@ export async function Profile({
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="change_logs">Change Logs</TabsTrigger>
           </TabsList>
-          <TabsContent value="projects">
+          <TabsContent value="projects" className="flex flex-col gap-2">
             {isOwnProfile && <NewProjectBtn />}
+            <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
           </TabsContent>
           <TabsContent value="change_logs">
             change logs - not implemented yet
