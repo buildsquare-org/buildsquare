@@ -3,7 +3,9 @@ import {
   ConfigModal,
   ConfigModalTrigger,
 } from "./config-modal/config-modal.component";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database } from "@/models/supabase";
+import { NewProjectBtn } from "./new-project-btw";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
@@ -17,7 +19,7 @@ export async function Profile({
   return (
     <>
       <ConfigModal profile={profile} />
-      <article className="flex flex-col gap-2 w-full">
+      <article className="flex flex-col gap-5 w-full">
         <header className="flex gap-8 w-full justify-between">
           <div className="flex gap-4">
             <img
@@ -51,6 +53,18 @@ export async function Profile({
             </ConfigModalTrigger>
           )}
         </header>
+        <Tabs defaultValue="projects" className="w-full">
+          <TabsList>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="change_logs">Change Logs</TabsTrigger>
+          </TabsList>
+          <TabsContent value="projects">
+            <NewProjectBtn />
+          </TabsContent>
+          <TabsContent value="change_logs">
+            change logs - not implemented yet
+          </TabsContent>
+        </Tabs>
       </article>
     </>
   );
