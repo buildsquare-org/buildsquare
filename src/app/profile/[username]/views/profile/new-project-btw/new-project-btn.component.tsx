@@ -36,9 +36,11 @@ export function NewProjectBtn() {
     router.refresh();
     setShowModals(false);
 
-    setTimeout(() => {
-      setShowModals(true);
-    }, 200);
+    if (window.innerWidth < 640) {
+      setTimeout(() => {
+        setShowModals(true);
+      }, 200);
+    }
   }
 
   return (
