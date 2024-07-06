@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ImageInputBox } from "@/components/ui/image-input-box";
 import { Label } from "@/components/ui/label";
 import { TextArea } from "@/components/ui/text-area";
 import { TextInput } from "@/components/ui/text-input";
 import { Database } from "@/models/supabase";
 import { createClient } from "@/utils/supabase/client";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type TNewProject = Omit<
@@ -14,6 +16,8 @@ type TNewProject = Omit<
 >;
 
 export function NewProjectForm() {
+  const [formImage, setFormImage] = useState<null | File>(null);
+
   const { register, handleSubmit, formState, getFieldState, watch } =
     useForm<TNewProject>({ mode: "onChange" });
 
@@ -61,31 +65,6 @@ export function NewProjectForm() {
               required: { value: true, message: "area required" },
             })}
           />
-        </fieldset>
-        <fieldset className="flex flex-col">
-          <Label>Description</Label>
-          <TextArea
-            {...register("description", {
-              required: { value: true, message: "area required" },
-              maxLength: {
-                value: 700,
-                message: "description cannot contain more than 700 letter(s)",
-              },
-            })}
-            className="min-h-44"
-          />
-          <div className="flex gap-1 justify-between">
-            <p className="dark:text-rose-400 text-sm">
-              {errors.description?.message && errors.description.message}
-            </p>
-            {getFieldState("description").isDirty && descriptionValue && (
-              <span
-                className={`${descriptionValue.length > 700 ? "dark:text-rose-400" : "dark:text-indigo-400"} text-sm transition-colors duration-150`}
-              >
-                {descriptionValue.length} / 700
-              </span>
-            )}
-          </div>
         </fieldset>
         <fieldset className="flex flex-col">
           <Label>Project Repository</Label>
@@ -153,6 +132,36 @@ export function NewProjectForm() {
             {errors.project_url?.message && errors.project_url.message}
           </p>
         </fieldset>
+        <fieldset className="flex flex-col">
+          <Label>Description</Label>
+          <TextArea
+            {...register("description", {
+              required: { value: true, message: "area required" },
+              maxLength: {
+                value: 700,
+                message: "description cannot contain more than 700 letter(s)",
+              },
+            })}
+            className="min-h-44"
+          />
+          <div className="flex gap-1 justify-between">
+            <p className="dark:text-rose-400 text-sm">
+              {errors.description?.message && errors.description.message}
+            </p>
+            {getFieldState("description").isDirty && descriptionValue && (
+              <span
+                className={`${descriptionValue.length > 700 ? "dark:text-rose-400" : "dark:text-indigo-400"} text-sm transition-colors duration-150`}
+              >
+                {descriptionValue.length} / 700
+              </span>
+            )}
+          </div>
+        </fieldset>
+        <ImageInputBox
+          onSelectImage={(img) => {
+            setFormImage(img);
+          }}
+        />
       </div>
       <Button
         isLoading={isSubmitting}

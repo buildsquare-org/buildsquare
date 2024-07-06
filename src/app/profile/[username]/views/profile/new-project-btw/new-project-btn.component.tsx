@@ -24,7 +24,7 @@ export function NewProjectBtn() {
           <PackagePlus className="w-4 h-4" /> Add project
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="after:hidden max-h-screen overflow-y-auto">
         <DrawerHeader>
           <DrawerTitle>New Project</DrawerTitle>
         </DrawerHeader>
