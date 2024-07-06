@@ -38,7 +38,7 @@ function ImageInputBox({
   return (
     <div
       className={cn(
-        `${selectedImageUrl ? "h-auto max-h-[536px]" : "h-44"} w-full rounded-sm flex relative border border-dashed border-neutral-700 focus-visible:border-indigo-400 focus-visible:outline-none has-[:focus-visible]:border-indigo-400`,
+        `${selectedImageUrl ? "w-full h-auto" : "h-44"} w-full rounded-sm flex relative border border-dashed border-neutral-700 focus-visible:border-indigo-400 focus-visible:outline-none has-[:focus-visible]:border-indigo-400`,
         containerClassName,
       )}
       onFocus={() => {
@@ -71,7 +71,10 @@ function ImageInputBox({
         <>
           <img
             src={selectedImageUrl}
-            className={cn("w-full h-auto object-cover", imageClassName)}
+            className={cn(
+              "w-full h-full aspect-video object-cover object-center",
+              imageClassName,
+            )}
           />
           <div className="flex flex-col gap-1 absolute top-2 right-2">
             <Button variant="destructive" onClick={handleUnselectImage}>
