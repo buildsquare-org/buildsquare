@@ -19,12 +19,32 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useRouter } from "next/navigation";
+import { useNewProjectDrawerSheetStore } from "./store";
 
 export function NewProjectBtn() {
+  const shouldShowModals = useNewProjectDrawerSheetStore(
+    (state) => state.visible,
+  );
+  const setShowModals = useNewProjectDrawerSheetStore(
+    (state) => state.setVisible,
+  );
+
+  const router = useRouter();
+
+  function onSubmittSuccess() {
+    router.refresh();
+    setShowModals(false);
+
+    setTimeout(() => {
+      setShowModals(true);
+    }, 200);
+  }
+
   return (
     <>
       <div className="sm:block hidden">
-        <Sheet>
+        <Sheet open={shouldShowModals ? undefined : false}>
           <SheetTrigger asChild>
             <Button
               variant="ghost"
@@ -38,13 +58,13 @@ export function NewProjectBtn() {
               <SheetTitle>New Project</SheetTitle>
             </SheetHeader>
             <main className="flex flex-col h-full">
-              <NewProjectForm />
+              <NewProjectForm onSubmitSuccess={onSubmittSuccess} />
             </main>
           </SheetContent>
         </Sheet>
       </div>
       <div className="sm:hidden">
-        <Drawer>
+        <Drawer open={shouldShowModals ? undefined : false}>
           <DrawerTrigger asChild>
             <Button
               variant="ghost"
@@ -58,7 +78,7 @@ export function NewProjectBtn() {
               <DrawerTitle>New Project</DrawerTitle>
             </DrawerHeader>
             <main className="flex flex-col px-4 h-full">
-              <NewProjectForm />
+              <NewProjectForm onSubmitSuccess={onSubmittSuccess} />
             </main>
             <DrawerFooter>
               <DrawerClose asChild>

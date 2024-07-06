@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { ImageInputBox } from "@/components/ui/image-input-box";
 import { Label } from "@/components/ui/label";
@@ -7,16 +10,17 @@ import { TextArea } from "@/components/ui/text-area";
 import { TextInput } from "@/components/ui/text-input";
 import { Database } from "@/models/supabase";
 import { createClient } from "@/utils/supabase/client";
-import { clear } from "console";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 type TNewProject = Omit<
   Database["public"]["Tables"]["project"]["Insert"],
   "owner_id" | "id"
 >;
 
-export function NewProjectForm() {
+type TProps = {
+  onSubmitSuccess: () => void;
+};
+
+export function NewProjectForm({ onSubmitSuccess }: TProps) {
   const [formImage, setFormImage] = useState<null | File>(null);
   const MAX_IMAGE_SIZE_ALLOWED_IN_MB = 2;
   const ONE_MEGABYTE_IN_KB = 1000000;
@@ -51,23 +55,35 @@ export function NewProjectForm() {
 
     if (!user || !user.id) return;
 
+    // we do not get the image file from the form, but from the state. so we need to separate them
+    const { cover_image_url, ...formData } = data;
+
+    const newProject: Database["public"]["Tables"]["project"]["Insert"] = {
+      ...formData,
+      owner_id: user.id,
+    };
+
     try {
       if (formImage) {
         const newImagePath = `${user.id}/${crypto.randomUUID()}`;
-        const { error } = await supabase.storage
+        const { error, data } = await supabase.storage
           .from("images")
           .upload(newImagePath, formImage);
 
-        if (error) throw new Error("error uploading image");
+        if (error || !data) throw new Error("error uploading image");
+
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("images").getPublicUrl(data.path);
+
+        newProject.cover_image_url = publicUrl;
       }
-      const newProject: Database["public"]["Tables"]["project"]["Insert"] = {
-        ...data,
-        owner_id: user.id,
-      };
 
       const { error } = await supabase.from("project").insert(newProject);
 
       if (error) throw new Error("error submitting");
+
+      onSubmitSuccess();
     } catch (error) {
       throw new Error("error submitting");
     }
