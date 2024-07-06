@@ -7,6 +7,7 @@ import { TextArea } from "@/components/ui/text-area";
 import { TextInput } from "@/components/ui/text-input";
 import { Database } from "@/models/supabase";
 import { createClient } from "@/utils/supabase/client";
+import { clear } from "console";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,9 +18,18 @@ type TNewProject = Omit<
 
 export function NewProjectForm() {
   const [formImage, setFormImage] = useState<null | File>(null);
+  const MAX_IMAGE_SIZE_ALLOWED_IN_MB = 2;
+  const ONE_MEGABYTE_IN_KB = 1000000;
 
-  const { register, handleSubmit, formState, getFieldState, watch } =
-    useForm<TNewProject>({ mode: "onChange" });
+  const {
+    register,
+    handleSubmit,
+    formState,
+    getFieldState,
+    watch,
+    setError,
+    clearErrors,
+  } = useForm<TNewProject>({ mode: "onChange" });
 
   const {
     isValid,
@@ -41,14 +51,26 @@ export function NewProjectForm() {
 
     if (!user || !user.id) return;
 
-    const newProject: Database["public"]["Tables"]["project"]["Insert"] = {
-      ...data,
-      owner_id: user.id,
-    };
+    try {
+      if (formImage) {
+        const newImagePath = `${user.id}/${crypto.randomUUID()}`;
+        const { error } = await supabase.storage
+          .from("images")
+          .upload(newImagePath, formImage);
 
-    const { error } = await supabase.from("project").insert(newProject);
+        if (error) throw new Error("error uploading image");
+      }
+      const newProject: Database["public"]["Tables"]["project"]["Insert"] = {
+        ...data,
+        owner_id: user.id,
+      };
 
-    if (error) throw new Error("error submitting");
+      const { error } = await supabase.from("project").insert(newProject);
+
+      if (error) throw new Error("error submitting");
+    } catch (error) {
+      throw new Error("error submitting");
+    }
   }
 
   return (
@@ -157,11 +179,46 @@ export function NewProjectForm() {
             )}
           </div>
         </fieldset>
-        <ImageInputBox
-          onSelectImage={(img) => {
-            setFormImage(img);
-          }}
-        />
+        <fieldset>
+          <Label>Cover Image</Label>
+          <ImageInputBox
+            onSelectImage={(img) => {
+              setFormImage(img);
+
+              if (!img) {
+                clearErrors("cover_image_url");
+                return;
+              }
+
+              if (
+                img?.size >
+                MAX_IMAGE_SIZE_ALLOWED_IN_MB * ONE_MEGABYTE_IN_KB
+              ) {
+                setError("cover_image_url", {
+                  message: "Max image size is 2mb",
+                });
+              } else {
+                clearErrors("cover_image_url");
+              }
+            }}
+          />
+          <div className="flex gap-1 justify-between">
+            <p className="dark:text-rose-400 text-sm">
+              {errors.cover_image_url?.message &&
+                errors.cover_image_url.message}
+            </p>
+            {formImage && (
+              <span
+                className={`${formImage.size > MAX_IMAGE_SIZE_ALLOWED_IN_MB * ONE_MEGABYTE_IN_KB ? "dark:text-rose-400" : "dark:text-indigo-400"} text-sm transition-colors duration-150`}
+              >
+                {formImage.size > ONE_MEGABYTE_IN_KB
+                  ? `${Math.round(formImage.size / ONE_MEGABYTE_IN_KB)} mb`
+                  : `${formImage.size / 1000} kb`}{" "}
+                / {`${MAX_IMAGE_SIZE_ALLOWED_IN_MB} mb`}
+              </span>
+            )}
+          </div>
+        </fieldset>
       </div>
       <Button
         isLoading={isSubmitting}
