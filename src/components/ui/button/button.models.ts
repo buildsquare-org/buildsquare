@@ -9,7 +9,7 @@ export type RawProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const buttonVariants = cva(
-  "flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "flex items-center justify-center gap-1 whitespace-nowrap rounded-sm text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -17,7 +17,8 @@ export const buttonVariants = cva(
         "primary-grayscale": "bg-neutral-300 text-neutral-950",
         secondary:
           "dark:bg-neutral-800 dark:text-neutral-50 border dark:border-neutral-700/60 hover:brightness-110",
-        destructive: "",
+        destructive:
+          "dark:bg-rose-600 dark:text-neutral-50 hover:brightness-110 border dark:border-rose-500",
         outline: "",
         ghost: "",
         link: "text-200 underline-offset-4 hover:underline",

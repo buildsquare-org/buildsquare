@@ -59,6 +59,47 @@ export type Database = {
           },
         ];
       };
+      project: {
+        Row: {
+          cover_image_url: string | null;
+          created_at: string;
+          description: string | null;
+          id: number;
+          owner_id: string;
+          project_url: string | null;
+          repository_url: string | null;
+          title: string;
+        };
+        Insert: {
+          cover_image_url?: string | null;
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          owner_id: string;
+          project_url?: string | null;
+          repository_url?: string | null;
+          title: string;
+        };
+        Update: {
+          cover_image_url?: string | null;
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          owner_id?: string;
+          project_url?: string | null;
+          repository_url?: string | null;
+          title?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_owner_id_fkey";
+            columns: ["owner_id"];
+            isOneToOne: false;
+            referencedRelation: "user";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       user: {
         Row: {
           created_at: string;

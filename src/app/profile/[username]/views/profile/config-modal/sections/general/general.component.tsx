@@ -28,7 +28,7 @@ export function GeneralSection({ profile }: TGeneralSectionProps) {
       },
     });
 
-  const { isDirty, isValid, isSubmitting, errors } = formState;
+  const { isValid, isSubmitting, errors } = formState;
 
   const router = useRouter();
 
