@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database } from "@/models/supabase";
 import { NewProjectBtn } from "./new-project-btw";
 import { ProjectList } from "./project-list";
+import { ProjectListSkeleton } from "./project-list/project-list-skeleton.component";
+import { Suspense } from "react";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
@@ -65,7 +67,9 @@ export async function Profile({
           </TabsList>
           <TabsContent value="projects" className="flex flex-col gap-3">
             {isOwnProfile && <NewProjectBtn />}
-            <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
+            <Suspense fallback={<ProjectListSkeleton />}>
+              <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
+            </Suspense>
           </TabsContent>
           <TabsContent value="change_logs">
             change logs - not implemented yet
