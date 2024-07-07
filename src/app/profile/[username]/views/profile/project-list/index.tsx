@@ -19,7 +19,7 @@ export async function ProjectList({ userId, sessionId }: TProps) {
   if (projects.length === 0) return null;
 
   return (
-    <ul className="flex flex-col gap-5">
+    <ul className="flex flex-col gap-3">
       {projects.map((project) => (
         <li key={project.id}>
           <Project project={project} sessionId={sessionId} />

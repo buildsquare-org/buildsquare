@@ -12,7 +12,7 @@ import { DeleteProjectBtn } from "./delete-btn";
 
 export function Project({ sessionId, project }: TProps) {
   return (
-    <article className="flex gap-3 rounded-[4px] h-44 p-3 dark:bg-neutral-800 border dark:border-neutral-700/40">
+    <article className="flex gap-3 rounded-sm h-44 p-3 dark:bg-neutral-800 border dark:border-neutral-700/40">
       {project.cover_image_url && (
         <img
           src={project.cover_image_url}

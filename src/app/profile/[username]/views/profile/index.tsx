@@ -63,7 +63,7 @@ export async function Profile({
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="change_logs">Change Logs</TabsTrigger>
           </TabsList>
-          <TabsContent value="projects" className="flex flex-col gap-2">
+          <TabsContent value="projects" className="flex flex-col gap-3">
             {isOwnProfile && <NewProjectBtn />}
             <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
           </TabsContent>
