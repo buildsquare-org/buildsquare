@@ -9,6 +9,12 @@ export default async function ProfilePage({
 }) {
   const supabase = createClient();
 
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("");
+    }, 500000);
+  });
+
   const { data: profile } = await supabase
     .from("profile")
     .select("*")
