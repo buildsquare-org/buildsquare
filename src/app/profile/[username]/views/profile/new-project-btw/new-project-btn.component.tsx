@@ -50,7 +50,7 @@ export function NewProjectBtn() {
           <SheetTrigger asChild>
             <Button
               variant="ghost"
-              className="border border-dashed border-neutral-700 rounded-sm w-full gap-1 dark:text-neutral-300 hover:brightness-110"
+              className="bg-neutral-800 font-medium border border-dashed border-neutral-700 rounded-sm w-full gap-1 dark:text-neutral-300 hover:brightness-110"
             >
               <PackagePlus className="w-4 h-4" /> Add project
             </Button>

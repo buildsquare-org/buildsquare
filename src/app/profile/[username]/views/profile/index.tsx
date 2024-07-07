@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database } from "@/models/supabase";
 import { NewProjectBtn } from "./new-project-btw";
 import { ProjectList } from "./project-list";
+import { ProjectListSkeleton } from "./project-list/project-list-skeleton.component";
+import { Suspense } from "react";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
@@ -22,7 +24,7 @@ export async function Profile({
   return (
     <>
       <ConfigModal profile={profile} />
-      <article className="flex flex-col gap-5 w-full">
+      <article className="flex flex-col gap-5 w-full pb-5">
         <header className="flex gap-8 w-full justify-between">
           <div className="flex gap-4 w-full">
             <img
@@ -63,9 +65,11 @@ export async function Profile({
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="change_logs">Change Logs</TabsTrigger>
           </TabsList>
-          <TabsContent value="projects" className="flex flex-col gap-2">
+          <TabsContent value="projects" className="flex flex-col gap-3">
             {isOwnProfile && <NewProjectBtn />}
-            <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
+            <Suspense fallback={<ProjectListSkeleton />}>
+              <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
+            </Suspense>
           </TabsContent>
           <TabsContent value="change_logs">
             change logs - not implemented yet
