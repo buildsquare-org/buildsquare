@@ -24,7 +24,7 @@ export async function Profile({
   return (
     <>
       <ConfigModal profile={profile} />
-      <article className="flex flex-col gap-5 w-full">
+      <article className="flex flex-col gap-5 w-full pb-5">
         <header className="flex gap-8 w-full justify-between">
           <div className="flex gap-4 w-full">
             <img

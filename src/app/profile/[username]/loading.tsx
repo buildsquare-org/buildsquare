@@ -3,7 +3,7 @@ import { ProjectListSkeleton } from "./views/profile/project-list/project-list-s
 
 export default function ProfileSkeleton() {
   return (
-    <div className="flex flex-col gap-5" aria-hidden>
+    <div className="flex flex-col gap-5 pb-5" aria-hidden>
       <div className="flex gap-2 w-full">
         <Bone className="w-16 h-16 rounded-full" />
         <div className="flex flex-col flex-1 gap-2 w-full">
