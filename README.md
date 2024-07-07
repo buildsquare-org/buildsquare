@@ -14,19 +14,19 @@ Build Square is a web app made for developers who want to build in public, shari
   4. - [x] can edit photo
   5. - [x] can edit wild link
 - [ ] can delete account
-- [ ] list user projects on a tab on profile
+- [x] list user projects on a tab on profile
 - [ ] list user change logs in a tab on profile
 
 ### project
 
-- [ ] can create a project
-  1. - [ ] can set cover image (an image for showcasing the project, not as a cover - it must be displayed not as a banner, but as a github readme image)
-  2. - [ ] can set title
-  3. - [ ] can set a description.
-  4. - [ ] can set project homepage link
-  5. - [ ] can set project wild link
+- [x] can create a project
+  1. - [x] can set cover image (an image for showcasing the project, not as a cover - it must be displayed not as a banner, but as a github readme image)
+  2. - [x] can set title
+  3. - [x] can set a description.
+  4. - [x] can set project homepage link
+  5. - [x] can set project github link
 - [ ] can edit project fields
-- [ ] can delete project
+- [x] can delete project
 - [ ] can add tags to a project (tags are not created by users, but by the admins)
 
 ### change log
@@ -40,7 +40,7 @@ Build Square is a web app made for developers who want to build in public, shari
 
 ### feed
 
-- [ ] feed view
+- [x] feed view
   1. - [ ] can see a feed of profiles, change logs and projects mixed in a masonry layout
 - [ ] week view
   1. - [ ] feed of projects most popular this week
