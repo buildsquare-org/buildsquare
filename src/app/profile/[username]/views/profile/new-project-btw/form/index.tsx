@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -22,6 +21,7 @@ type TProps = {
 
 export function NewProjectForm({ onSubmitSuccess }: TProps) {
   const [formImage, setFormImage] = useState<null | File>(null);
+
   const MAX_IMAGE_SIZE_ALLOWED_IN_MB = 2;
   const ONE_MEGABYTE_IN_KB = 1000000;
 
@@ -101,8 +101,15 @@ export function NewProjectForm({ onSubmitSuccess }: TProps) {
             type="text"
             {...register("title", {
               required: { value: true, message: "area required" },
+              maxLength: {
+                value: 100,
+                message: "title can not contain more than 100 letter(s)",
+              },
             })}
           />
+          <p className="dark:text-rose-400 text-sm">
+            {errors.title?.message && errors.title.message}
+          </p>
         </fieldset>
         <fieldset className="flex flex-col">
           <Label>Project Repository</Label>
