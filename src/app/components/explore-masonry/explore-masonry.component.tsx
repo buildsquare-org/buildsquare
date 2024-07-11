@@ -4,11 +4,16 @@ import { TProps } from "./explore-masonry.models";
 export function ExploreMasonry({ initialProjects }: TProps) {
   const colSize = Math.floor(initialProjects.length / 3);
 
+  const remainderPosts = initialProjects.length % 3;
+
   const firstColItems = initialProjects.slice(0, colSize);
 
   const secondColItems = initialProjects.slice(colSize, colSize * 2);
 
-  const thirdColItems = initialProjects.slice(colSize * 2, colSize * 3 + 2);
+  const thirdColItems = initialProjects.slice(
+    colSize * 2,
+    colSize * 3 + remainderPosts,
+  );
 
   return (
     <ul className="grid grid-cols-3 gap-4 w-full max-w-7xl">
