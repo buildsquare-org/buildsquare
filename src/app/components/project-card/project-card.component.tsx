@@ -1,7 +1,5 @@
-import { Suspense } from "react";
 import { ProfileCard } from "../profile-card";
 import { TProps } from "./project-card.models";
-import { ProfileCardSkeleton } from "../profile-card/profile-card.skeleton";
 
 export function ProjectCard({ project }: TProps) {
   return (
@@ -14,9 +12,7 @@ export function ProjectCard({ project }: TProps) {
       )}
       <footer>
         <div className="py-1">
-          <Suspense fallback={<ProfileCardSkeleton />}>
-            <ProfileCard userId={project.owner_id} />
-          </Suspense>
+          <ProfileCard userId={project.owner_id} />
         </div>
         <h1 className="font-semibold text-lg">{project.title}</h1>
         {project.description && (

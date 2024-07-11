@@ -1,18 +1,39 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ClientRouting } from "@/models/routing/client.routing";
 import { TProps } from "./profile-card.models";
-import Link from "next/link";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
+import { ProfileCardSkeleton } from "./profile-card.skeleton";
+import { Database } from "@/models/supabase";
 
-export async function ProfileCard({ userId }: TProps) {
-  const supabase = createClient();
+export function ProfileCard({ userId }: TProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<
+    Database["public"]["Tables"]["profile"]["Row"] | null
+  >(null);
 
-  const { data: profile } = await supabase
-    .from("profile")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
+  useEffect(() => {
+    async function fetchProfile() {
+      const supabase = createClient();
 
-  if (!profile) return null;
+      const { data: profile } = await supabase
+        .from("profile")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+
+      if (!profile) return;
+
+      setProfile(profile);
+      setIsLoading(false);
+    }
+
+    fetchProfile();
+  }, [userId]);
+
+  if (isLoading || !profile) return <ProfileCardSkeleton />;
 
   return (
     <Link
