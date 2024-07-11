@@ -12,12 +12,12 @@ export function ExploreMasonry({
   initialProjects,
   columnCountMediaQueries: { md, sm, lg, defaultColumnCount },
 }: TProps) {
-  const [columnCount, setColumnCount] = useState(defaultColumnCount);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [columnCount, setColumnCount] = useState<number | null>(null);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
   function setColumnCountDependingOnWindowWidth(currentWindowWidth: number) {
     // sm
-    if (currentWindowWidth > SM_SIZE && windowWidth < MD_SIZE) {
+    if (currentWindowWidth > SM_SIZE && currentWindowWidth < MD_SIZE) {
       setColumnCount(sm);
 
       return;
@@ -42,12 +42,14 @@ export function ExploreMasonry({
   }
 
   useEffect(() => {
-    if (!document) return;
+    if (!document || !document.body.scrollWidth) return;
 
     setWindowWidth(document.body.scrollWidth);
   }, []);
 
   useEffect(() => {
+    if (!windowWidth) return;
+
     setColumnCountDependingOnWindowWidth(windowWidth);
   }, [windowWidth]);
 
@@ -64,9 +66,9 @@ export function ExploreMasonry({
     };
   }, []);
 
-  const colSize = Math.round(initialProjects.length / columnCount);
+  if (!columnCount) return null;
 
-  const remainderPosts = initialProjects.length % columnCount;
+  const colSize = Math.round(initialProjects.length / columnCount);
 
   function calcualteSliceStart(index: number): number {
     if (index === 0) return 0;
