@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { cn } from "@/utils/cn";
 import { Aside } from "./components/aside";
+import { Analytics } from "@vercel/analytics/react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -26,6 +27,7 @@ export default function RootLayout({
         <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden">
           {children}
         </main>
+        <Analytics />
       </body>
     </html>
   );
