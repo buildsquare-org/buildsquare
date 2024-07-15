@@ -5,10 +5,13 @@ import Link from "next/link";
 import { ClientRouting } from "@/models/routing/client.routing";
 import { TProps } from "./profile-card.models";
 import { createClient } from "@/utils/supabase/client";
-import { ProfileCardSkeleton } from "./profile-card.skeleton";
 import { Database } from "@/models/supabase";
+import {
+  ProfileCard,
+  ProfileCardSkeleton,
+} from "@/components/ui/profile-card/";
 
-export function ProfileCard({ userId }: TProps) {
+export function ProfileCardWrapper({ userId }: TProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<
     Database["public"]["Tables"]["profile"]["Row"] | null
@@ -40,22 +43,7 @@ export function ProfileCard({ userId }: TProps) {
       href={ClientRouting.profile().getbyUsername(profile.username)}
       className="flex gap-2 w-full"
     >
-      <img
-        src={
-          profile.picture_url ?? `https://avatar.vercel.sh/${profile?.username}`
-        }
-        className="w-8 h-8 object-cover object-center rounded-full"
-      />
-      <div className="flex flex-col flex-1">
-        {profile.name && (
-          <h1 className="font-medium leading-4 dark:text-neutral-200">
-            {profile.name}
-          </h1>
-        )}
-        <span className="dark:text-indigo-400 text-sm">
-          @{profile.username.slice(0, 16)}
-        </span>
-      </div>
+      <ProfileCard profile={profile} />
     </Link>
   );
 }

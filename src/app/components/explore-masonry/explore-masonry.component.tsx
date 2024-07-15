@@ -83,26 +83,23 @@ export function ExploreMasonry({
   }
 
   return (
-    <>
-      {colSize}
-      <ul
-        className="grid gap-4 w-full max-w-7xl text-white"
-        style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}
-      >
-        {Array(columnCount)
-          .fill("")
-          .map((_, index) => (
-            <ul className="flex flex-col w-full h-full gap-4" key={index}>
-              {initialProjects
-                .slice(calcualteSliceStart(index), calculateSliceEnd(index))
-                .map((project) => (
-                  <li key={project.id}>
-                    <ProjectCard project={project} />
-                  </li>
-                ))}
-            </ul>
-          ))}
-      </ul>
-    </>
+    <ul
+      className="grid gap-4 w-full max-w-7xl text-white"
+      style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}
+    >
+      {Array(columnCount)
+        .fill("")
+        .map((_, index) => (
+          <ul className="flex flex-col w-full h-full gap-4" key={index}>
+            {initialProjects
+              .slice(calcualteSliceStart(index), calculateSliceEnd(index))
+              .map((project) => (
+                <li key={project.id}>
+                  <ProjectCard project={project} />
+                </li>
+              ))}
+          </ul>
+        ))}
+    </ul>
   );
 }

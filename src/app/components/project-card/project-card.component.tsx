@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ProfileCard } from "../profile-card";
 import { TProps } from "./project-card.models";
 import { ClientRouting } from "@/models/routing/client.routing";
+import { ProfileCardWrapper } from "../profile-card";
 
 export function ProjectCard({ project }: TProps) {
   return (
@@ -15,7 +15,7 @@ export function ProjectCard({ project }: TProps) {
         )}
         <footer>
           <div className="py-1">
-            <ProfileCard userId={project.owner_id} />
+            <ProfileCardWrapper userId={project.owner_id} />
           </div>
           <h1 className="font-semibold text-lg">{project.title}</h1>
           {project.description && (

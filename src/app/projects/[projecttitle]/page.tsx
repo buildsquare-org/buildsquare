@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { BookCopy, Globe } from "lucide-react";
 import Link from "next/link";
+import { ProfileCardWrapper } from "./profile-card.wrapper";
+import { Suspense } from "react";
+import { ProfileCardSkeleton } from "@/components/ui/profile-card";
 
 export default async function ProjectPage({
   params: { projecttitle },
@@ -41,6 +44,9 @@ export default async function ProjectPage({
         </div>
       </header>
       <main className="flex flex-col gap-4">
+        <Suspense fallback={<ProfileCardSkeleton />}>
+          <ProfileCardWrapper userId={project.owner_id} />
+        </Suspense>
         {project.description && (
           <p className="text-pretty text-neutral-300">{project.description}</p>
         )}
