@@ -68,7 +68,11 @@ export async function Profile({
           <TabsContent value="projects" className="flex flex-col gap-3">
             {isOwnProfile && <NewProjectBtn />}
             <Suspense fallback={<ProjectListSkeleton />}>
-              <ProjectList sessionId={sessionUserId} userId={profile.user_id} />
+              <ProjectList
+                sessionId={sessionUserId}
+                userId={profile.user_id}
+                username={profile.username}
+              />
             </Suspense>
           </TabsContent>
           <TabsContent value="change_logs">

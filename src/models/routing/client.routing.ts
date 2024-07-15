@@ -27,7 +27,10 @@ export class ClientRouting {
   public static projects() {
     const basePath = "/projects";
 
-    return { slash: basePath };
+    return {
+      slash: basePath,
+      getById: (projectTitle: string | number) => `${basePath}/${projectTitle}`,
+    };
   }
 
   public static star() {
