@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn(GeistSans.className, "dark")}>
-      <body className="dark:bg-neutral-900 flex">
+      <body className="dark:bg-neutral-900 dark:text-neutral-300 flex">
         <Aside />
         <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden">
           {children}
