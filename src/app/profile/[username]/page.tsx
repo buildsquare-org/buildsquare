@@ -7,11 +7,6 @@ export default async function ProfilePage({
 }: {
   params: { username: string };
 }) {
-  // await new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve("");
-  //   }, 123123123);
-  // });
   const supabase = createClient();
 
   const { data: profile } = await supabase

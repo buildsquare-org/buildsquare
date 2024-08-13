@@ -28,6 +28,7 @@ export class ClientRouting {
     const basePath = "/projects";
 
     return {
+      new: `${basePath}/new`,
       slash: basePath,
       getById: (projectTitle: string | number) => `${basePath}/${projectTitle}`,
     };

@@ -11,7 +11,6 @@ export default async function ProjectPage({
 }: {
   params: { projecttitle: string };
 }) {
-  console.log({ title: projecttitle.replaceAll("%20", " ") });
   const supabase = createClient();
 
   const { data: project, error: errorGettingProject } = await supabase
