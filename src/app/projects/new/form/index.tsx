@@ -10,6 +10,8 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ProjectTitleField } from "./project-name-field";
+import { useRouter } from "next/navigation";
+import { ClientRouting } from "@/models/routing/client.routing";
 
 export type TNewProject = Omit<
   Database["public"]["Tables"]["project"]["Insert"],
@@ -21,6 +23,8 @@ export function NewProjectForm() {
   const [userId, setUserId] = useState<
     null | Database["public"]["Tables"]["user"]["Row"]["id"]
   >(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchUser() {
@@ -94,6 +98,8 @@ export function NewProjectForm() {
       const { error } = await supabase.from("project").insert(newProject);
 
       if (error) throw new Error("error submitting");
+
+      router.push(ClientRouting.projects().getById(data.title));
     } catch (error) {
       throw new Error("error submitting");
     }
