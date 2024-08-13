@@ -242,15 +242,18 @@ export function NewProjectForm() {
           </div>
         </fieldset>
       </div>
-      <Button
-        isLoading={isSubmitting}
-        disabled={isSubmitting || !isValid || !isDirty || !userId}
-      >
-        Add
-      </Button>
       {isSubmitted && !isSubmitSuccessful && (
         <p className="text-rose-400 text-sm">something went wrong</p>
       )}
+      <div className="w-full flex justify-end">
+        <Button
+          isLoading={isSubmitting}
+          disabled={isSubmitting || !isValid || !isDirty || !userId}
+          className="w-max"
+        >
+          post new project
+        </Button>
+      </div>
     </form>
   );
 }
