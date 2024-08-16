@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" className={cn(GeistSans.className, "dark")}>
       <body className="dark:bg-neutral-900 dark:text-neutral-300 flex md:flex-row flex-col-reverse">
         <Nav />
-        <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden px-2 py-10">
+        <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden md:px-3 px-2 py-2 md:py-2 pb-16 md:pb-2">
           {children}
         </main>
         <Analytics />
