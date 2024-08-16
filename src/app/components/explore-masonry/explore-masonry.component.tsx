@@ -79,6 +79,8 @@ export function ExploreMasonry({
   function calculateSliceEnd(index: number): number {
     if (index === 0) return colSize * 1;
 
+    if (index + 1 === columnCount) return index + 2;
+
     return colSize * (index + 1);
   }
 
