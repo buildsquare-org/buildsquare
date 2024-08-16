@@ -11,7 +11,7 @@ export default async function Index() {
     .limit(50);
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center p-10">
+    <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <ExploreMasonry
         initialProjects={projects ?? []}
         columnCountMediaQueries={{ defaultColumnCount: 1, sm: 1, md: 3, lg: 4 }}
