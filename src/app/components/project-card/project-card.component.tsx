@@ -9,7 +9,7 @@ export function ProjectCard({ project }: TProps) {
   const router = useRouter();
 
   function redirectToProjectPage() {
-    if (window.getSelection() !== null) return; // if the user selected some text, dont continue
+    if (window.getSelection()?.type === "Range") return;
 
     router.push(ClientRouting.projects().getById(project.title));
   }
