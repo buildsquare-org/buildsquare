@@ -1,7 +1,12 @@
 import { Bone } from "@/components/ui/bone";
 import { Label } from "@/components/ui/label";
 import { TextInput } from "@/components/ui/text-input";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormClearErrors,
+  UseFormRegister,
+  UseFormSetError,
+} from "react-hook-form";
 import { TNewProject } from "..";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Database } from "@/models/supabase";
@@ -14,9 +19,17 @@ type TProps = {
   userId: Database["public"]["Tables"]["user"]["Row"]["id"] | null;
   register: UseFormRegister<TNewProject>;
   errors: FieldErrors<TNewProject>;
+  setError: UseFormSetError<TNewProject>;
+  clearError: UseFormClearErrors<TNewProject>;
 };
 
-export function ProjectTitleField({ userId, register, errors }: TProps) {
+export function ProjectTitleField({
+  userId,
+  register,
+  errors,
+  setError,
+  clearError,
+}: TProps) {
   const [inputValue, setInputValue] = useState("");
   const [projectTitle] = useDebounce({ state: inputValue, delay: 500 });
   const [isLoadingTitleAvailability, setIsLoadingTitleAvailability] =
@@ -41,11 +54,15 @@ export function ProjectTitleField({ userId, register, errors }: TProps) {
       if (projects?.length === 0) {
         setIsLoadingTitleAvailability(false);
         setIsProjectTitleAvailable(true);
+
+        clearError("title");
         return;
       }
 
       setIsLoadingTitleAvailability(false);
       setIsProjectTitleAvailable(false);
+
+      setError("title", { message: "project title is not available" });
     }
 
     checkProjectTitleAvailability();
@@ -99,12 +116,8 @@ export function ProjectTitleField({ userId, register, errors }: TProps) {
         </fieldset>
       </div>
       <p className="dark:text-rose-400 text-sm">
-        {!isProjectTitleAvailable && "project title already in use"}
-      </p>
-      <p className="dark:text-rose-400 text-sm">
         {errors.title?.message && errors.title.message}
       </p>
-
       <p>
         spaces will be replaced with "-" characters.{" "}
         {projectTitle.length > 0 &&

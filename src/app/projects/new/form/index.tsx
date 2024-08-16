@@ -115,6 +115,8 @@ export function NewProjectForm() {
           userId={userId}
           register={register}
           errors={errors}
+          setError={setError}
+          clearError={clearErrors}
         />
         <fieldset className="flex flex-col">
           <Label>Project Repository</Label>
@@ -254,7 +256,13 @@ export function NewProjectForm() {
       <div className="w-full flex justify-end">
         <Button
           isLoading={isSubmitting}
-          disabled={isSubmitting || !isValid || !isDirty || !userId}
+          disabled={
+            isSubmitting ||
+            !isValid ||
+            !isDirty ||
+            !userId ||
+            Object.values(errors).length !== 0
+          }
           className="w-max"
         >
           post new project

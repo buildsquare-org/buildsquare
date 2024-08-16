@@ -47,7 +47,9 @@ export default async function ProjectPage({
           <ProfileCardWrapper userId={project.owner_id} />
         </Suspense>
         {project.description && (
-          <p className="text-pretty text-neutral-300">{project.description}</p>
+          <p className="text-pretty text-neutral-300 whitespace-pre-line">
+            {project.description}
+          </p>
         )}
         {project.cover_image_url && (
           <img
