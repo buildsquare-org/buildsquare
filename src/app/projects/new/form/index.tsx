@@ -194,7 +194,7 @@ export function NewProjectForm() {
                 message: "description cannot contain more than 700 letter(s)",
               },
             })}
-            className="min-h-44 whitespace-pre-line"
+            className="min-h-44"
           />
           <div className="flex gap-1 justify-between">
             <p className="dark:text-rose-400 text-sm">
