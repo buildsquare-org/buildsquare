@@ -1,7 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { cn } from "@/utils/cn";
-import { Aside } from "./components/aside";
+import { Nav } from "./components/aside";
 import { Analytics } from "@vercel/analytics/react";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -22,9 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn(GeistSans.className, "dark")}>
-      <body className="dark:bg-neutral-900 dark:text-neutral-300 flex">
-        <Aside />
-        <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden md:px-0 px-2 py-10">
+      <body className="dark:bg-neutral-900 dark:text-neutral-300 flex md:flex-row flex-col-reverse">
+        <Nav />
+        <main className="h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden px-2 py-10">
           {children}
         </main>
         <Analytics />
