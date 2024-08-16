@@ -115,6 +115,8 @@ export function NewProjectForm() {
           userId={userId}
           register={register}
           errors={errors}
+          setError={setError}
+          clearError={clearErrors}
         />
         <fieldset className="flex flex-col">
           <Label>Project Repository</Label>
@@ -192,7 +194,7 @@ export function NewProjectForm() {
                 message: "description cannot contain more than 700 letter(s)",
               },
             })}
-            className="min-h-44"
+            className="min-h-44 whitespace-pre-line"
           />
           <div className="flex gap-1 justify-between">
             <p className="dark:text-rose-400 text-sm">
@@ -254,7 +256,13 @@ export function NewProjectForm() {
       <div className="w-full flex justify-end">
         <Button
           isLoading={isSubmitting}
-          disabled={isSubmitting || !isValid || !isDirty || !userId}
+          disabled={
+            isSubmitting ||
+            !isValid ||
+            !isDirty ||
+            !userId ||
+            Object.values(errors).length !== 0
+          }
           className="w-max"
         >
           post new project
