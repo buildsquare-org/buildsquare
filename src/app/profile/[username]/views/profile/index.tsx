@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { Suspense } from "react";
+import { PackagePlus } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   ConfigModal,
@@ -5,10 +9,9 @@ import {
 } from "./config-modal/config-modal.component";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database } from "@/models/supabase";
-import { NewProjectBtn } from "./new-project-btw";
 import { ProjectList } from "./project-list";
 import { ProjectListSkeleton } from "./project-list/project-list-skeleton.component";
-import { Suspense } from "react";
+import { ClientRouting } from "@/models/routing/client.routing";
 
 export const revalidate = 60 * 6; // cache 6 hours
 
@@ -66,7 +69,17 @@ export async function Profile({
             <TabsTrigger value="change_logs">Change Logs</TabsTrigger>
           </TabsList>
           <TabsContent value="projects" className="flex flex-col gap-3">
-            {isOwnProfile && <NewProjectBtn />}
+            {isOwnProfile && (
+              <Button
+                asChild
+                variant="ghost"
+                className="bg-neutral-800 font-medium border border-dashed border-neutral-700 rounded-sm w-full gap-1 dark:text-neutral-300 hover:brightness-110"
+              >
+                <Link href={ClientRouting.projects().new}>
+                  <PackagePlus className="w-4 h-4" /> Add project
+                </Link>
+              </Button>
+            )}
             <Suspense fallback={<ProjectListSkeleton />}>
               <ProjectList
                 sessionId={sessionUserId}
