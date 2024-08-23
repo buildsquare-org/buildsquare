@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
@@ -12,7 +12,9 @@ export function DeleteProjectBtn({ project }: Tprops) {
 
   const router = useRouter();
 
-  async function deleteProject() {
+  async function deleteProject(e: MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+
     const supabase = createClient();
 
     try {
@@ -45,7 +47,6 @@ export function DeleteProjectBtn({ project }: Tprops) {
     } catch (error) {
       console.log({ error });
       //
-    } finally {
       setLoading(false);
     }
   }

@@ -74,8 +74,11 @@ export function NewProjectForm() {
     // we do not get the image file from the form, but from the state. so we need to separate them
     const { cover_image_url, ...formData } = data;
 
+    const titleWithNoSpaces = formData.title.replaceAll(" ", "-");
+
     const newProject: Database["public"]["Tables"]["project"]["Insert"] = {
       ...formData,
+      title: titleWithNoSpaces,
       owner_id: userId,
     };
 
@@ -99,7 +102,7 @@ export function NewProjectForm() {
 
       if (error) throw new Error("error submitting");
 
-      router.push(ClientRouting.projects().getById(data.title));
+      router.push(ClientRouting.projects().getById(titleWithNoSpaces));
     } catch (error) {
       throw new Error("error submitting");
     }
