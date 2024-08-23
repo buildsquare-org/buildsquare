@@ -49,7 +49,7 @@ export function ProjectTitleField({
         .from("project")
         .select("*")
         .eq("owner_id", userId)
-        .eq("title", projectTitle.replaceAll(" ", "-"));
+        .ilike("title", projectTitle.replaceAll(" ", "-").toLowerCase());
 
       if (projects?.length === 0) {
         setIsLoadingTitleAvailability(false);
