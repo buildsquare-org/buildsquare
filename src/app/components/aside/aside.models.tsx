@@ -13,7 +13,6 @@ export const ASIDE_LINKS: TAsideLink[] = [
     alt: "Projects",
     icon: Package,
     href: ClientRouting.projects().slash,
-    disabled: true,
   },
   {
     alt: "Explore",

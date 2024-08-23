@@ -38,6 +38,11 @@ export function NavLink({ item }: { item: TAsideLink }) {
       href={item.href}
       title={item.alt}
       className={`p-2 flex items-center justify-center rounded-md transition-all duration-150 ${isActive ? "dark:bg-neutral-800 dark:text-neutral-200" : "dark:text-neutral-400 hover:brightness-125"} ${item.disabled ? "opacity-40" : ""}`}
+      onClick={(e) => {
+        if (item.disabled) {
+          e.preventDefault();
+        }
+      }}
     >
       <Icon />
     </Link>
